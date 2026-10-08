@@ -1,0 +1,2 @@
+    PID  RUID  EUID USER     RUSER    COMMAND         COMMAND
+   2688  1000     0 root     liveuser fusermount3     fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc

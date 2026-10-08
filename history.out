@@ -1,0 +1,46 @@
+    1  
+    2  sudo groupadd students
+    3  sudo useradd -u 1234 -m user1
+    4  sudo usermod -aG students user1
+    5  id user1
+    6  sudo passwd user1
+    7  sudo change -M 90 user1
+    8  sudo chage -M 90 user1
+    9  sudo chage -l user1
+   10  sudo find / -type f -perm -4000 -ls 2>/dev/null | tee ~/setuid-files.out
+   11  ps -eo pid,ruid,euid,user,ruser,comm,args | awk 'NR==1 || ($3 == 0 && $2 != 0)' | tee ~/privileged-processes.out
+   12  ls -l /usr/bin/cat
+   13  sudo -u user1 /usr/bin/cat /etc/shadow
+   14  sudo cp /usr/bin/cat /home/user1/cat
+   15  sudo chown root:root /home/user1/cat
+   16  ls -l /home/user1/cat
+   17  sudo chmod u+s /home/user1/cat
+   18  ls -l /home/user1/cat
+   19  sudo -u user1 /home/user1/cat /etc/shadow
+   20  sudo stat /home/user1 > ~/stat.out
+   21  sudo stat /home/user1/cat >> ~/stat.out
+   22  sudo -u user1 touch /home/user1/testfile
+   23  sudo -u user1 ls -l /home/user1/testfile
+   24  sudo -u user1 /usr/bin/chown root:root /home/user1/testfile
+   25  sudo cp /usr/bin/chown /home/user1/chown
+   26  sudo ls -l /home/user1/chown
+   27  sudo chown user1:user1 /home/user1/chown
+   28  sudo ls -l /home/user1/chown
+   29  sudo setcap cap_chown+ep /home/user1/chown
+   30  sudo getcap /home/user1/chown
+   31  sudo -u user1 /home/user1/chown root:root /home/user1/testfile
+   32  sudo ls -l /home/user1/testfile
+   33  sudo getcap /home/user1/chown > ~/getcap.out
+   34  cat ~/getcap.out
+   35  sudo stat /home/user1/chown >> ~/stat.out
+   36  command -v timedatectl
+   37  sudo visudo -f /etc/sudoers.d/user1-time
+   38  date
+   39  sudo -u user1 sudo /usr/bin/timedatectl set-time "2026-10-08 20:30:00"
+   40  timedatectl status
+   41  sudo timedatectl set-ntp false
+   42  sudo systemctl stop chronyd
+   43  timedatectl status
+   44  sudo -u user1 sudo /usr/bin/timedatectl set-time "2026-10-08 20:30:00"
+   45  date
+   46  history > ~/history.out
